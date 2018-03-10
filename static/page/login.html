@@ -1,0 +1,37 @@
+<div class="lock-wrapper" data-ng-controller="LoginCtrl">
+	<div class="panel lock-box">
+	    <div class="center"> 
+			<img alt="" src="/static/img/user1.png" class="img-circle"/> 
+		</div>
+	    <h4> 管理员登录 </h4>
+	    <p class="text-center" ng-class="{true:'text-danger',false:''}[data.Msg!='输入账号和密码进行登录']" >{{data.Msg}}</p>
+	    <div class="row">
+	    	<form class="form-inline" role="form" data-ng-submit="login()">
+		        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+		        	<div class="iconic-input right">
+		            	<label class="text-muted">用户名</label>
+		            	<input type="text" placeholder="Enter Username" class="form-control padding-horizontal-15" required="required" data-ng-model="data.Username"/>
+		            	<i class="fa fa-envelope"></i> 
+					</div>
+		          	<div class="iconic-input right">
+			            <label  class="text-muted">密　码</label>
+			            <input type="password" placeholder="Password" class="form-control lock-input" required="required" data-ng-model="data.Password"/>
+			            <i class="fa fa-lock"></i> 
+					</div>
+
+			        <div class="square-blue pull-left pv-15">
+			            <label class="ui-checkbox">
+				            <input name="checkbox1" type="checkbox" ng-model="data.Remember">
+				            <span> <strong> 下次自动登录 </strong> </span> 
+						</label>
+			        </div>
+
+		          <button type="submit" class="btn btn-block btn-primary" >登录</button>
+				  
+		        </div>
+	      	</form>
+	
+	    </div>
+	</div>
+
+</div>

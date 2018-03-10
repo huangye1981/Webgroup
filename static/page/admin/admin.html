@@ -1,0 +1,121 @@
+
+<div class="pageheader">
+    <h2><i class="fa fa-user"></i> 管理员列表 </h2>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">当前位置:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#/">
+                    Home
+                </a>
+            </li>
+            <li class="active"> 管理员列表 </li>
+        </ol>
+    </div>
+</div>
+
+
+
+
+
+<div class="page"  data-ng-controller="AdminCtrl">
+	<!--权限不足时显示-->
+	<div ng-if="!checkPermission('admin','list')" data-ng-include=" '/static/page/nopermission.html' "></div>
+
+	<div ng-if="checkPermission('admin','list')">
+	    <div class="well">
+			<div class="row">
+				<form role="form"  data-ng-submit="getList(1)">
+	            <div ng-class="{true: 'col-sm-11', false: 'col-sm-12'}[checkPermission('admin','add')]" >
+					<div class="input-group">
+	                   	<input placeholder="管理员查询" class="form-control" type="text" data-ng-model="search.Keyword"/>
+	                    <span class="input-group-btn">
+	                    	<button class="btn btn-info" type="submit"><span class="fa fa-search"> 查询 </span></button>
+	                    </span> 
+						
+					</div>
+	            </div>
+				</form>
+	            <div class="col-sm-1" ng-if="checkPermission('admin','add')">
+					<button class="btn btn-primary" ng-click="add();"><span class="fa fa-plus"></span> 新增 </button>
+	            </div>
+	        </div>
+	    </div>
+	
+	   <div class="row">
+		    <div class="col-lg-12">
+		      	<div class="panel panel-default">
+
+			        <div class="panel-body">
+			
+			            <table class="table table-hover">
+			                <thead>
+				                <tr>
+									
+									<th width="10%">照片</th>
+									<th>账号</th>
+									<th>名称</th>
+									<th>性别</th>
+									<th>状态</th>
+									<th>最后登陆时间</th>
+									<th>最后登陆IP</th>
+									<th>创建时间</th>
+									<th>修改时间</th>
+				                    <th width="150" >操作</th>
+				                    
+				                </tr>
+			                </thead>
+			                <tbody>
+				               <tr ng-repeat="item in listData.Items">
+									
+									<td>
+										<img  ng-if="item.Photo.length>0" ng-src="{{item.Photo}}" class="img-circle img50_50 ng-scope">
+										<img  ng-if="item.Photo.length<=0" ng-src="/static/img/photo.png" class="img-circle img50_50 ng-scope">
+									</td>
+									<td><span>{{item.Username}}</span></td>
+									<td><span>{{item.Name}}</span></td>
+									<td><span>{{item.Sex | AppCfgFind:'Sex' }}</span></td>
+									<td><span>{{item.Status | AppCfgFind:'Status' }}</span></td>
+									<td><span>{{item.LoginTime * 1000 | date:'yyyy-MM-dd HH:mm'}}</span></td>
+									<td><span>{{item.LoginIp}}</span></td>
+									<td><span>{{item.CreateTime * 1000 | date:'yyyy-MM-dd HH:mm'}}</span></td>
+									<td><span>{{item.UpdateTime * 1000 | date:'yyyy-MM-dd HH:mm'}}</span></td>
+									
+									<td>
+										<button ng-if="checkPermission('admin','view')" type="button" class="btn btn-default btn-sm" ng-click="edit(item.Id, 'view')" title="查看" tabindex="0"><i class="fa fa-eye"></i></button>
+										<button ng-if="checkPermission('admin','edit')" type="button" class="btn btn-default btn-sm" ng-click="edit(item.Id)" title="编辑" tabindex="0"><i class="fa fa-pencil"></i></button>
+										<button ng-if="checkPermission('admin','del')" type="button" class="btn btn-default btn-sm" ng-click="del(item)" title="删除" tabindex="0"><i class="fa fa-trash-o"></i></button>
+									</td>
+								</tr>
+			                
+			                </tbody>
+			            </table>
+			
+						<footer class="table-footer">
+						    <div class="row">
+						        <div class="col-md-12 text-right pagination-container">
+						            <pagination class="pagination-sm"
+				                        ng-model="search.Page"
+				                        total-items="listData.Pagination.MaxCount"
+				                        max-size="10"
+				                        ng-change="getList()"
+				                        items-per-page="search.PageSize"
+				                        rotate="false"
+				                       	previous-text="上一页" 
+										next-text="下一页" 
+										first-text="第一页"
+										last-text="最后一页" 
+				                        boundary-links="true">
+									</pagination>
+						        </div>
+						    </div>
+						</footer>
+			
+			        </div>
+		    	</div>
+	
+	    	</div>
+	  	</div>
+	</div>
+</div>
+

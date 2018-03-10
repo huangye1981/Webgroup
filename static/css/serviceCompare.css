@@ -1,0 +1,82 @@
+.main-intro{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.intro-div{
+    padding-top:10px;
+    padding-left: 7px !important;
+    background-color: #6aceff;
+    padding-bottom: 10px;
+    display: table;
+}
+
+.intro-right{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.store-img{
+    background: url(../img/service/house.png) no-repeat center;
+}
+
+.all-img{
+    background: url(../img/service/all.png) no-repeat center;
+}
+
+.account-img{
+    background: url(../img/service/account.png) no-repeat center;
+}
+
+.sale-img{
+    background: url(../img/service/sale.png) no-repeat center;
+}
+
+.statistic-img{
+    background: url(../img/service/statistic.png) no-repeat center;
+}
+
+.va-service-img{
+    background: url(../img/service/va-service.png) no-repeat center;
+}
+
+.hardware-img{
+    background: url(../img/service/hardware.png) no-repeat center;
+}
+
+.software-img{
+    background: url(../img/service/software.png) no-repeat center;
+}
+
+.pay-service-div{
+    background-color: #fffaac;
+}
+
+.service-img{
+    width: 125px;
+    height: 156px;
+    zoom: 0.4;
+    margin: 0 auto;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.all-title{
+    top: 5px;
+    position: relative;
+    font-size: 16px;
+    font-weight:bold;
+    font-family: simHei;
+    padding-left: 14px;
+    color:#132e5a;
+}
+
+.content{
+    font-size: 14px;
+    font-family: simHei;
+    padding-top: 5px;
+    color: #243958;
+    float:left;
+    padding-left:4px;
+    letter-spacing:1px;
+}

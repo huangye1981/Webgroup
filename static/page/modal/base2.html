@@ -1,0 +1,28 @@
+<form class="form-horizontal" role="form" data-ng-submit="save()">
+
+<div class="modal-header" id="draggable_1" draggable>
+	<h3  id="draggable_2">
+		{{ title }}
+		<i class="fa fa-times close" ng-click="cancel()" ></i>
+	</h3>
+</div>
+
+<div class="modal-body">
+
+
+					<ui-edit-obj-t set-attr-def="attrDef" set-edit-data="editData" set-old-data="oldData"
+								change="change" 
+								change-goods-type-attr="changeGoodsTypeAttr" 
+								change-tree-multiple-sel="changeTreeMultipleSel"
+								change-callback="changeCallback">
+					</ui-edit-obj-t>
+											
+
+</div>
+
+
+<div  id="draggable_3" class="modal-footer" ng-if="foot!='hidden'">
+	<button class="btn btn-w-md" ng-click="reset()" ng-disabled="!change('')" ng-class="{true: 'btn-info', false: 'btn-default'}[change('')]">重置</button>
+	<button class="btn btn-w-md" type="submit"  ng-disabled="!change('')" ng-class="{true: 'btn-danger', false: 'btn-default'}[change('')]">保存</button>
+</div>
+</form>

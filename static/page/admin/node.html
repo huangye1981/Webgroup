@@ -1,0 +1,77 @@
+
+<div class="pageheader">
+    <h2><i class="fa fa-navicon"></i> 节点管理 </h2>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">当前位置:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#/">
+                    Home
+                </a>
+            </li>
+            <li class="active"> 节点管理 </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="page" data-ng-controller="NodeCtrl">
+	<!--权限不足时显示-->
+	<div ng-if="!checkPermission('node','list')" data-ng-include=" '/static/page/nopermission.html' "></div>
+
+    <div class="row" ng-if="checkPermission('node','list')">
+        <div class="col-md-12">
+
+            <section class="panel panel-default">
+
+				
+                <div class="panel-body">
+					<div class="col-md-12">
+						<button class="btn btn-primary pull-right" ng-if="checkPermission('node','add')" ng-click="add(-1);"><span class="fa fa-plus"></span> 添加根节点 </button>
+						<span class="clearfix"></span>
+						
+							<aside  ng-if="loginData.Id!=0" class="nav-container {{admin.asideColor}}" ng-class=" {'nav-fixed': admin.fixedSidebar, 'nav-horizontal': admin.menu}">
+							<div class="nav-wrapper" >
+							 	<ul class="nav" ng-if="list.length>0">
+							        <li class="nav-title" data-i18n="项目管理"> </li>
+							       
+							 		<li data-ng-repeat="item in list" data-collapse-nav ng-include="'node_list_tpl.html'"  ></li>
+
+							    </ul>
+							</div>
+						</aside>
+
+					</div>
+                </div>
+            </section>
+
+        </div>
+        
+    </div>
+
+   
+
+
+
+	<script type="text/ng-template" id="node_list_tpl.html">
+
+		<a> 
+			<i class="{{item.Icon}}"></i>
+			<span data-i18n="{{item.Name}}"></span> 
+
+			<span class="btn fa fa-times pull-right" ng-if="checkPermission('node','del')" ng-click="del(item)"></span>
+			<span class="btn fa fa-edit pull-right"  ng-if="checkPermission('node','edit')" ng-click="edit(item.Id)"></span>
+			<span class="btn fa fa-plus pull-right"  ng-if="checkPermission('node','add')" ng-click="add(item.Id)"></span>
+		</a>
+		
+
+	    <ul>
+	        <li  data-ng-repeat="item in item.Childs"  ng-include="'node_list_tpl.html'" ></li>
+	    </ul>
+	
+	</script>
+
+
+
+
+</div>

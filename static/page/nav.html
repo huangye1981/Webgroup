@@ -1,0 +1,80 @@
+<div class="nav-wrapper">
+    <ul id="nav" class="nav" data-slim-scroll >
+        <li class="nav-title" data-i18n="项目管理"></li>
+       
+ 		<li data-ng-repeat="item in loginData.Nav" data-collapse-nav ng-include="'nav_list_tpl.html'"  ></li>
+
+
+ 		<li class="divider"></li>
+        <li class="nav-title" data-i18n="系统管理"> </li>
+      
+        <li ng-if="checkSystem('admin')">
+            <a href="#/admin/admin"> <i class="fa fa-user"></i><span data-i18n="管理员管理"></span></a>
+        </li>
+
+ 		<li ng-if="checkSystem('mode')">
+            <a href="#/admin/mode"><i class="fa fa-th-large"></i><span data-i18n="模块管理"></span></a>
+        </li>
+
+
+        <li ng-if="checkSystem('role')">
+            <a href="#/admin/role"><i class="fa fa-users"></i><span data-i18n="角色管理"></span></a>
+           
+        </li>
+
+		<li ng-if="checkSystem('node')">
+            <a href="#/admin/node"><i class="fa fa-navicon"></i><span data-i18n="节点管理"></span></a>
+           
+        </li>
+
+        <li ng-if="checkSystem('ipban')">
+            <a href="#/admin/ipban"><i class="fa fa-warning"></i><span data-i18n="屏蔽管理"></span></a>
+           
+        </li>
+ 		<li ng-if="checkSystem('logs')">
+            <a href="#/admin/logs"><i class="fa fa-file-text-o"></i><span data-i18n="日志管理"></span></a>
+           
+        </li>
+
+        <li class="divider"></li>
+        <li class="nav-title" data-i18n="服务器使用资源"> </li>
+        <li class="ph-15 nav-status">
+            <p class="text-small pr-5"> <i class="fa fa-dashboard text-primary mr-5"></i> CPU Usage <span class="label label-primary pull-right">10%</span> </p>
+            <div class="progress progressbar-xs">
+            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+               <span class="sr-only">10% Complete</span>
+            </div>
+          </div>
+        </li>
+        <li class="ph-15 nav-status">
+            <p class="text-small pr-5"> <i class="fa fa-database text-danger mr-5"></i> Bandwidth <span class="label label-danger pull-right">10%</span> </p>
+            <div class="progress progressbar-xs">
+            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+               <span class="sr-only">10% Complete</span>
+            </div>
+          </div>
+        </li>
+    </ul>
+</div>
+
+
+
+
+<script type="text/ng-template" id="nav_list_tpl.html">
+
+
+	<a href="{{item.Url}}"> 
+		
+		<i class="fa {{item.Icon}}"></i><span data-i18n="{{item.Name}}"></span> 
+	</a>
+	
+    <ul>
+        <li data-ng-repeat="item in item.Childs" >
+			<a href="{{item.Url}}"> 
+				<i class="fa fa-caret-right mr-10"></i>
+				<i class="fa {{item.Icon}}"></i><span data-i18n="{{item.Name}}"></span> 
+			</a>
+		</li>
+    </ul>
+
+</script>

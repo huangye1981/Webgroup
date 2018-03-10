@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="full-screen" content="yes" />
+	<meta name="browsermode" content="application" />
+	<meta name="x5-orientation" content="portrait" />
+	<meta name="x5-fullscreen" content="true" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=Edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <script src="/static/js/mzui.js"></script>
+    <link href="/static/css/mzui.min.css?1" rel="stylesheet" />
+    <script src="/static/js/msgbox.js"></script>
+    <script src="/static/js/base64.js"></script>
+    <script src="/static/js/md5.js"></script>
+    <script src="/static/js/sha1.js"></script>
+    <script src="/static/js/html5hashWap.js"></script>
+    <script src="/static/js/dropzone.min.js"></script>
+
+	<style>
+		.parent{
+		    background: url('/static/img/arrow.png') right center no-repeat; 
+		   /* the width and the height of your image */
+		    width: 150px;
+		    height: 30px;
+		    overflow: hidden;
+		    border: solid 1px #ccc;
+			border-radius:5px;
+		}
+		
+		.parent select{
+		    -webkit-appearance:none;
+		    -moz-appearance:none;
+		    appearance:none;
+		    background:transparent;
+		    border:none;
+		    padding-left:10px;
+		    width: 170px;
+		    height:100%;    
+		}
+
+
+        /*滚动条垂直方向的宽度*/
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        /* 垂直滚动条的滑动块 */
+        ::-webkit-scrollbar-thumb:vertical {
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: rgba(129,129,129,0.5);
+        }
+        /*IE滚动条*/
+        HTML {
+            scrollbar-base-color: rgb(250,250,250);
+            scrollbar-3dlight-color: #C0C0C0;
+            scrollbar-highlight-color: #C0C0C0;
+            scrollbar-track-color: #EBEBEB;
+            scrollbar-arrow-color: rgb(42,58,86);
+            scrollbar-shadow-color: #C0C0C0;
+            scrollbar-dark-shadow-color: #C0C0C0;
+        }
+
+      
+    </style>
+</head>
+<body>
+
+    <div id="partial" class="container display fade in" data-find="_3" data-display-name="navs" style="padding-right: 0px; padding-left: 0px;">
+
+        <section class="section">
+            
+			<table width="100%" height="37" border="0">
+			  <tr>
+			   
+			    <td>
+					<div class="parent">
+					  <select id="Category">
+					      <option>全部分类</option>
+					      <option value="1">视频</option>
+					      <option value="2">电影</option>
+					      <option value="3">电视剧</option>
+					      <option value="4">综艺</option>
+					      <option value="5">动漫</option>
+					      <option value="6">音乐</option>
+					      <option value="7">图片</option>
+					      <option value="8">其他</option>
+					  </select>
+					</div>
+				</td>
+			    <td>
+					<div class="box">
+						<a href="javascript:;" class="btn success circle" style="width: 100%;" id="hash_file" action="#">选择文件上传（可批量）</a>
+			        </div>
+				</td>
+			  </tr>
+			</table>
+
+
+            <div id="tbody" class="list section">
+                
+            </div>
+        </section>
+        <script>
+
+            function upok(hash, file, md5) {
+				var type = $("#Type").val();
+				var category = $("#Category").val();
+                if (file.size == 0) {
+                    alert("不允许上传空文件？");
+                    window.location.reload();
+                    return;
+                }
+                $("#" + md5).find("#tip").text("检测中...");
+                $.ajax({
+                    type: 'POST',
+                    url: "/app/my/add",
+                    data: "data="+hash+"|"+file.name+"|"+file.size+"|"+md5 +"|"+category,
+                    
+                    success: function (obj) {
+						console.log(obj)
+                        var lobj = $("#" + md5);
+                        if (obj.Code==1) {
+                            lobj.find("#tip").text("秒传成功");
+                            lobj.find("#tip").attr("class", "label green circle");
+                            lobj.find("#UpIco").attr("class", "avatar circle green");
+                            lobj.find("#UpIco").find("i").attr("class", "icon icon-check");
+                            lobj.attr("ok", "true");
+                        } else {
+                            lobj.find("#tip").text(obj.Msg);
+                            lobj.find("#tip").attr("class", "label red circle");
+                            lobj.find("#UpIco").attr("class", "avatar circle red");
+                            lobj.find("#UpIco").find("i").attr("class", "icon icon-times");
+                            lobj.attr("ok", "true");
+                        }
+                    }
+                });
+            }
+        </script>
+    </div>
+
+</body>
+</html>

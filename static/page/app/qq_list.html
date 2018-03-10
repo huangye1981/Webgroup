@@ -1,0 +1,125 @@
+
+
+<!-- Page Header Start -->
+<div class="pageheader">
+  <h2><i class="fa fa-neuter"></i> QQ小号列表 </h2>
+  <div class="breadcrumb-wrapper hidden-xs"> <span class="label">当前位置:</span>
+    <ol class="breadcrumb">
+      <li> <a href="/#"> Home </a> </li>
+      <li>资源管理 </li>
+      <li class="active"> QQ小号列表 </li>
+    </ol>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<div class="page">
+	<!--权限不足时显示-->
+	<div ng-if="!checkPermission('qq','list')" data-ng-include=" '/static/page/nopermission.html' "></div>
+
+	<div ng-if="checkPermission('qq','list')">
+	    <div class="well">
+
+			<form role="goodsform"  data-ng-submit="getList(1)">
+				<div class="row">
+
+	 				<div class="form-group">
+
+						
+						<div class="col-sm-11">
+
+							<div class="input-group">
+			                   	<input placeholder="QQ号模糊查询" class="form-control" type="text" data-ng-model="search.Keyword"/>
+			                    <span class="input-group-btn">
+		                    		<button class="btn btn-info" type="submit"><span class="fa fa-search"> 查询 </span></button>
+		                   		</span> 
+							
+							</div>
+
+	                  	</div>
+
+					
+						<div class="col-sm-1">
+							
+							<button  class="btn btn-primary" data-nodrag ng-click="add()"><span class="fa fa-plus"></span> 新增</button>
+							
+						</div>
+					
+						
+
+					</div>
+
+		        </div>
+			</form>
+
+	    </div>
+	
+	   <div class="row">
+		    <div class="col-lg-12">
+		      	<div class="panel panel-default">
+
+			        <div class="panel-body">
+			
+			            <table class="table table-hover">
+			                <thead>
+				                <tr>
+									<th>所属</th>
+									<th>QQ账号</th>
+									<th>QQ密码</th>
+									<th>Cookie</th>
+									<th>创建时间</th>
+									<th>使用次数</th>
+									<th>状态</th>
+									<th width="85"><div>操作</div></th>
+
+				                    
+				                </tr>
+			                </thead>
+			                <tbody>
+				               <tr ng-repeat="item in listData.Items">
+									<td><span>{{item.Uid|arrayAttr:config.Admin:'Name'}}</span></td>
+									<td><span>{{item.Qq}}</span></td>
+									<td><span>{{item.Password}}</span></td>
+									<td><textarea class="form-control ng-pristine ng-invalid ng-invalid-required ng-touched" rows="2" disabled="false">{{item.Cookie}}</textarea></td>
+									<td><span>{{item.Time * 1000 | date:'yyyy-MM-dd HH:mm'}}</span></td>
+									<td><span>{{item.Count}}</span></td>
+									<td><span>{{item.Status}}</span></td>
+									<td>
+										<button ng-if="checkPermission('qq','edit')" type="button" class="btn btn-default btn-sm" ng-click="edit(item.Id)" title="编辑" tabindex="0"><i class="fa fa-pencil"></i></button>
+										<button ng-if="checkPermission('qq','del')" type="button" class="btn btn-default btn-sm" ng-click="del(item)" title="删除" tabindex="0"><i class="fa fa-trash-o"></i></button>
+									</td>
+								</tr>
+			                
+			                </tbody>
+			            </table>
+			
+						<footer class="table-footer">
+						    <div class="row">
+						        <div class="col-md-12 text-right pagination-container">
+						            <pagination class="pagination-sm"
+				                        ng-model="search.Page"
+				                        total-items="listData.Pagination.MaxCount"
+				                        max-size="10"
+				                        ng-change="getList()"
+				                        items-per-page="search.PageSize"
+				                        rotate="false"
+				                       	previous-text="上一页" 
+										next-text="下一页" 
+										first-text="第一页"
+										last-text="最后一页" 
+				                        boundary-links="true">
+									</pagination>
+						        </div>
+						    </div>
+						</footer>
+			
+			        </div>
+		    	</div>
+	
+	    	</div>
+	  	</div>
+	</div>
+</div>
+
+
+

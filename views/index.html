@@ -1,0 +1,47 @@
+<!doctype html>
+<html  ng-app="App">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title><?.Appname?></title>
+    <meta name="description" content="<?.Appname?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <link rel="stylesheet"  href="/static/css/css.css" type="text/css">
+    <!-- Needs images, font... therefore can not be part of main.css -->
+    <link rel="stylesheet" href="/static/css/font-awesome.css">
+    <link rel="stylesheet" href="/static/css/weather-icons.css">
+    <link rel="stylesheet" href="/static/css/main.css"/>   
+    <link rel="stylesheet" href="/static/css/plug.css"/>   
+
+ 	<script src="/static/js/framework.min.js?<?.Version?>"></script>
+    <script src="/static/js/admin.min.js?<?.Version?>"></script>
+    <script src="/static/js/app.min.js?<?.Version?>"></script>
+    <script src="/static/js/dom-to-image.min.js?<?.Version?>"></script>
+
+
+	<script>
+		var appname = "<?.Appname?>";
+		var version = "<?.Version?>";
+		
+	</script>
+
+</head>
+
+<body ng-controller="InitCtrl">
+
+<div id="app" class="app" custom-page="" off-canvas-nav="" ng-class=" {'layout-boxed': admin.layout} ">
+
+    <header data-ng-controller="HeaderCtrl" data-ng-include=" '/static/page/header.html?<?.Version?>' " id="header" class="header-container {{admin.navbarHeaderColor}}" data-ng-class="{'header-fixed': admin.fixedHeader}"> </header>
+
+    <div class="main-container">
+        <aside  ng-if="loginData.Code>0" data-ng-include=" '/static/page/nav.html?<?.Version?>' " id="nav-container" class="nav-container {{admin.asideColor}}" ng-class=" {'nav-fixed': admin.fixedSidebar, 'nav-horizontal': admin.menu}"></aside>
+
+        <div id="content" class="content-container animate-fade-up" ng-view="main"> </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

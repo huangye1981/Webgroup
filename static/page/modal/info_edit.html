@@ -1,0 +1,164 @@
+<form class="form-horizontal" role="form" id="purchaseEdit" data-ng-submit="save()">
+
+<div class="modal-header" id="draggable_1" draggable>
+	<h3 id="draggable_2">
+		{{ title }}
+		<i class="fa fa-times close" ng-click="cancel()" ></i>
+	</h3>
+</div>
+
+
+<div class="modal-body">
+
+
+	<div class="pad-5">
+
+		<tabset>
+			<tab heading="基本信息" title="点击图片上传照片">
+		
+				<div class="mr-20">
+
+					<div class="center mt-10"> 
+						<input type="file" class="up_input cursor" style="opacity: 0; height:136px;"  image="image" resize-max-height="{{attrDef[5].Value.Height}}" resize-max-width="{{attrDef[5].Value.Height}}"  resize-quality="{{attrDef[5].Value.Quality}}" force = "{{attrDef[5].Value.Force}}" callback-img-change="changeCallback" />
+						<img ng-if="editData[attrDef[5].Key]!=''" ng-src="{{editData[attrDef[5].Key]}}" class="img-thumbnail img-circle"/>	
+						<img ng-if="editData[attrDef[5].Key]==''" ng-src="/static/img/photo.png"  class="img-thumbnail img-circle"/>	
+					</div>
+					   
+					<div class="form-group mt-10">
+						<label class="col-sm-3 control-label text-danger">{{attrDef[0].Title}}</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" ng-disabled=true ng-model="editData[attrDef[0].Key]" placeholder="{{attrDef[0].Title}}"  ng-required = "{{attrDef[0].Required}}" maxlength="30">
+						</div>
+					</div> 
+			
+					<div class="form-group">
+						<label class="col-sm-3 control-label text-danger">{{attrDef[1].Title}}</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="password"  ng-disabled="op=='view'"  ng-model="editData[attrDef[1].Key]" placeholder="{{attrDef[1].Title}}" ng-required = "{{attrDef[1].Required}}">
+						</div>
+					</div> 
+			
+					<div class="form-group">
+						<label class="col-sm-3 control-label text-danger">{{attrDef[2].Title}}</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="password"  ng-disabled="op=='view'"  ng-model="editData[attrDef[2].Key]" placeholder="{{attrDef[2].Title}}" ng-required = "{{attrDef[2].Required}}">
+						</div>
+			
+					</div> 
+
+					
+
+					
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label text-danger">{{attrDef[6].Title}}</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" ng-disabled="op=='view'" ng-model="editData[attrDef[6].Key]" placeholder="{{attrDef[6].Title}}"  ng-required = "{{attrDef[6].Required}}" maxlength="30">
+						</div>
+			
+					</div> 
+			
+
+			
+			
+				</div> 
+		
+
+				
+			</tab>
+			<tab heading="详细资料"  disabled="checkData()" title="基本信息完整后才可以操作"> 
+				<div class="mr-20">
+
+
+					<div class="form-group mt-10">
+						
+						<label class="col-sm-3 control-label text-danger">{{attrDef[7].Title}}</label>
+						<div class="col-sm-8">
+							<label class="ui-radio" ng-repeat="radio_value in attrDef[7].Value">
+								<input type="radio" value="{{radio_value[0]}}" name="radio-{{attrDef[7].Key}}" ng-model="editData[attrDef[7].Key]">
+									<span>{{radio_value[1]}}</span>
+							</label>
+						</div>	
+	
+					</div> 
+			
+					<div class="form-group">
+						
+						<label class="col-sm-3 control-label text-danger">{{attrDef[8].Title}}</label>
+						<div class="col-sm-8">
+							<datetimepicker dateID="{{attrDef[8].Id}}" showtime="{{attrDef[8].Showtime}}" min="{{attrDef[8].Min}}" max="{{attrDef[8].Max}}" placeholder="{{attrDef[8].Title}}" format="{{attrDef[8].Format}}" dateClass="form-control"  ng-model="editData[attrDef[8].Key]"></datetimepicker>
+						</div>
+					</div> 
+	
+			
+					<div class="form-group">
+						<label class="col-sm-3 control-label text-danger">{{attrDef[9].Title}}</label>
+					
+						<div class="col-sm-8">
+							<input class="form-control" type="email" ng-disabled="op=='view'" ng-model="editData[attrDef[9].Key]" placeholder="{{attrDef[9].Title}}"  ng-required = "{{attrDef[9].Required}}">
+						</div>
+			
+					</div> 
+						
+					<div class="form-group">
+						<label class="col-sm-3 control-label text-danger">{{attrDef[10].Title}}</label>
+					
+						<div class="col-sm-8">
+							<input class="form-control" type="text" ng-disabled="op=='view'" ng-model="editData[attrDef[10].Key]" placeholder="{{attrDef[10].Title}}"  ng-required = "{{attrDef[10].Required}}">
+						</div>
+			
+					</div> 
+					
+								
+					<div class="form-group">
+						<label class="col-sm-3 control-label text-danger">{{attrDef[11].Title}}</label>
+					
+						<div class="col-sm-8">
+							<input class="form-control" type="text" ng-disabled="op=='view'" ng-model="editData[attrDef[11].Key]" placeholder="{{attrDef[11].Title}}"  ng-required = "{{attrDef[11].Required}}">
+						</div>
+			
+					</div> 
+					
+								
+					<div class="form-group">
+						<label class="col-sm-3 control-label text-danger">{{attrDef[12].Title}}</label>
+					
+						<div class="col-sm-8">
+							<input class="form-control" type="text" ng-disabled="op=='view'" ng-model="editData[attrDef[12].Key]" placeholder="{{attrDef[12].Title}}"  ng-required = "{{attrDef[12].Required}}">
+						</div>
+			
+					</div> 
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label text-danger">{{attrDef[13].Title}}</label>
+					
+						<div class="col-sm-8">
+							<textarea class="form-control" rows="2" ng-disabled="op=='view'" placeholder="{{attrDef[13].Title}}" ng-model="editData[attrDef[13].Key]" ng-required = "{{attrDef[13].Required}}"></textarea>
+						</div>
+			
+					</div> 
+				</div> 
+	
+			</tab>
+
+			
+		</tabset>
+
+
+
+
+	</div>
+
+
+</div>
+
+
+
+
+
+<div class="modal-footer" ng-if="foot!='hidden' && op!='view'" id="draggable_3">
+	<button class="btn btn-w-md" ng-click="reset()" ng-disabled="!change('')" ng-class="{true: 'btn-info', false: 'btn-default'}[change('')]">重置</button>
+	<button class="btn btn-w-md" type="submit"  ng-disabled="!change('')" ng-class="{true: 'btn-danger', false: 'btn-default'}[change('')]">保存</button>
+</div>
+
+</form>

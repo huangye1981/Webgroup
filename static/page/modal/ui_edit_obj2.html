@@ -1,0 +1,147 @@
+
+<div class="form-group col-md-12 col-sm-12 col-xs-12">
+
+	<div class="iconic-input right" ng-repeat="item in attrDef">
+        <label class="col-sm-3  control-label" ng-class="{true: 'text-danger', false: ''}[change()(item.Key)]">{{item.Title}}</label>
+		
+		<div class="col-sm-9"  ng-switch="item.InputType">
+			<!-- label -->
+			<p class="form-control-static"  ng-switch-when="label">{{editData[item.Key]}}</p>
+			<!-- end  -->
+
+			<!-- input -->
+			<div class="col-sm-9"  ng-switch-when="text">
+				<input ng-if="item.Min>0 && item.Max>0" class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}" minlength="{{item.Min}}" maxlength="{{item.Max}}"  ng-required = "{{item.Required}}">
+				<input ng-if="item.Min>0 && item.Max==undefined" class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}" minlength="{{item.Min}}"  ng-required = "{{item.Required}}">
+				<input ng-if="item.Min==undefined && item.Max>0 " class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}" maxlength="{{item.Max}}"  ng-required = "{{item.Required}}">
+				<input ng-if="item.Min==undefined && item.Max==undefined" class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}"   ng-required = "{{item.Required}}">
+			</div>
+			
+
+			<div class="col-sm-9"  ng-switch-when="text-i">
+				<input type="number" ng-if="item.Min>0 && item.Max>0" class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}" min="{{item.Min}}" max="{{item.Max}}"  ng-required = "{{item.Required}}">
+				<input type="number" ng-if="item.Min>0 && item.Max==undefined" class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}" min="{{item.Min}}"  ng-required = "{{item.Required}}">
+				<input type="number" ng-if="item.Min==undefined && item.Max>0 " class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}" max="{{item.Max}}"  ng-required = "{{item.Required}}">
+				<input type="number" ng-if="item.Min==undefined && item.Max==undefined" class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}"   ng-required = "{{item.Required}}">
+			</div>
+			
+			<div class="col-sm-9"  ng-switch-when="text-f">
+				<input class="form-control" ng-model="editData[item.Key]" placeholder="{{item.Title}}" ng-required = "{{item.Required}}">
+			</div>
+
+			<div class="col-sm-9"  ng-switch-when="date">
+				<datetimepicker dateID="{{item.Id}}" placeholder="{{item.Title}}" format="{{item.Format}}" dateClass="form-control"  ng-model="editData[item.Key]"></datetimepicker>
+			</div>
+
+			<!-- email -->
+			<div class="col-sm-9"  ng-switch-when="email">
+				<input type="email" class="form-control" ng-model="editData[item.Key]" placeholder="{{item.Title}}" ng-required = "{{item.Required}}">
+			</div>
+
+			<div class="col-sm-9"  ng-switch-when="password">
+				<input type="password" ng-if="item.Min>0 && item.Max>0" class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}" minlength="{{item.Min}}" maxlength="{{item.Max}}"  ng-required = "{{item.Required}}">
+				<input type="password" ng-if="item.Min>0 && item.Max==undefined" class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}" minlength="{{item.Min}}"  ng-required = "{{item.Required}}">
+				<input type="password" ng-if="item.Min==undefined && item.Max>0 " class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}" maxlength="{{item.Max}}"  ng-required = "{{item.Required}}">
+				<input type="password" ng-if="item.Min==undefined && item.Max==undefined" class="form-control"  ng-model="editData[item.Key]" placeholder="{{item.Title}}"   ng-required = "{{item.Required}}">
+			</div>
+
+
+			<div class="col-sm-9"  ng-switch-when="radio">
+            	<label class="ui-radio" ng-repeat="radio_value in item.Value">
+					<input type="radio" value="{{radio_value[0]}}" name="radio-{{item.Key}}" ng-model="editData[item.Key]">
+					<span>{{radio_value[1]}}</span>
+				</label>
+			</div>
+
+
+			<div class="col-sm-9"  ng-switch-when="textarea">
+				<textarea class="form-control" rows="4" placeholder="{{item.Title}}" ng-model="editData[item.Key]" ng-required = "{{item.Required}}"></textarea>
+			</div>
+
+
+
+			<div class="col-sm-9"  ng-switch-when="checkbox">
+  				<label class="ui-checkbox">
+		            <input name="checkbox1" type="checkbox" ng-model="editData[item.Key]">
+		            <span> {{item.Value}} </span> 
+				</label>
+			</div>
+
+
+			<div class="col-sm-9" ng-switch-when="select">
+				<select class="form-control" ng-change="changeSelect()(item.Key, editData[item.Key])" ng-model="editData[item.Key]" ng-options="sel.Id as sel.Name for sel in item.Value"></select>
+			</div>
+
+
+			<div class="col-sm-9"  ng-switch-when="tree-multiple-sel">
+				<div class="panel panel-default">
+					<script type="text/ng-template" id="tree-multiple-sel-node.html">
+						<div ui-tree-handle class="tree-node tree-node-content">
+							<div class="">
+							<a class="angular-ui-tree-icon" ng-if="child.Childs && child.Childs.length > 0" data-nodrag ng-click="toggle(this)">
+								<span class="angular-ui-tree-icon-collapse" ng-class="{'collapsed': collapsed, 'uncollapsed': !collapsed}"></span>
+							</a>
+							<input ng-change="changeTreeMultipleSel()(item.Key, child.Id, child.Sel)" type="checkbox" ng-model="child.Sel">
+							{{child.Name}}<span ng-if="child.Childs && child.Childs.length > 0">({{child.SelCount}}/{{child.Childs.length}})</span>
+							</div>
+						</div>
+
+						<ol ui-tree-nodes="" ng-model="child.Childs" ng-class="{hidden: collapsed}">
+							<div ng-repeat="child in child.Childs" ui-tree-node ng-include="'tree-multiple-sel-node.html'" class="row"></div>
+						</ol>
+        			</script>
+					<div ui-tree data-nodrag="true" id="tree-multiple-sel-root-{{item.Key}}">
+						<ol ui-tree-nodes ng-model="item.Value.Tree">
+							<div data-collapsed="true" ng-repeat="child in item.Value.Tree" ui-tree-node ng-include="'tree-multiple-sel-node.html'"></div>
+						</ol>
+					</div>
+		      	</div>
+			</div>
+
+			<div class="col-sm-9" ng-switch-when="goods-type-attr-sel">
+				<div class="panel panel-default">
+			        <tabset>
+				        <tab ng-repeat="goods_type in item.Value" heading="{{goods_type.Name}}({{goods_type.SelCount}}/{{goods_type.Attrs.length}})">
+				          	<label ng-repeat="attr_item in goods_type.Attrs" class="col-md-4" ng-class="{true: 'text-danger', false: ''}[attr_item.Sel]">
+				          	<input ng-change="changeGoodsTypeAttr()(item.Key, goods_type.Id)" type="checkbox" ng-model="attr_item.Sel">{{attr_item.Name}}</label>
+				        </tab>
+					</tabset>
+		      	</div>
+			</div>
+
+			<div class="col-sm-9"  ng-switch-when="img">
+				<img ng-if="editData[item.Key]"  ng-src="{{editData[item.Key]}}" class="img-thumbnail img-circle"/>
+            </div>
+
+
+			<div class="col-sm-9" ng-switch-when="upload-img">
+				<input type="file" accept="image/*"
+				    image="image"
+				    resize-max-height="{{item.Value.Height}}"
+				    resize-max-width="{{item.Value.Width}}"
+				    resize-quality="{{item.Value.Quality}}"
+					callback-img-change="changeCallback()"
+					force = "{{item.Value.Force}}"
+				/>
+				<img ng-if="editData[item.Key]"  ng-src="{{editData[item.Key]}}" class="img-thumbnail img-circle"/>
+            </div>
+
+			<div class="col-sm-9"  ng-switch-when="select-multiple">
+                <ui-select multiple ng-model="$parent.editData[item.Key]" theme="bootstrap" ng-disabled="disabled" close-on-select="false"  title="{{item.Title}}">
+                  <ui-select-match  placeholder="{{item.Title}}">{{$item}}</ui-select-match>
+                  <ui-select-choices repeat="role in item.Value | filter:$select.search"> {{role}} </ui-select-choices>
+                </ui-select>
+            </div>
+
+
+			<div class="col-sm-9"  ng-switch-when="ueditor">
+                <div style="margin-bottom:1.25rem" class="ueditor" config="item.Config" ng-model="$parent.editData[item.Key]" ></div>
+            </div>
+
+
+			<!-- end  -->
+
+		</div>
+		
+	</div>
+</div>

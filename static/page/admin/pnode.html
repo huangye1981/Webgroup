@@ -1,0 +1,140 @@
+
+<div class="pageheader">
+    <h2><i class="fa fa-wrench"></i> 角色节点 </h2>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">当前位置:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#/">
+                    Home
+                </a>
+            </li>
+            <li class="active"> 角色节点 </li>
+        </ol>
+    </div>
+</div>
+
+
+
+
+
+<div class="page">
+	<!--权限不足时显示-->
+	<div ng-if="!checkPermission('role','pnode')" data-ng-include=" '/static/page/nopermission.html' "></div>
+
+    <div class="row" ng-if="checkPermission('role','pnode')">
+
+	 <div class="col-md-12">
+		<div class="panel panel-default">
+	        <header class="panel-heading">
+	
+				<button class="btn btn-info btn-sm" type="button" go-back><span class="fa fa-back"></span> 返回</button>
+				　　<strong>{{roleData.Name}}</strong>  <span class="pull-right panel-toolbar">
+				<button class="btn btn-primary btn-sm" type="button" ng-click="save()"> <span class="fa fa-save"></span> 保存</button>
+				
+	          	<button class="btn btn-danger btn-sm" type="button" ng-click="del(roleData.Id)"><span class="fa fa-times"></span> 删除</button>
+	          </span> 
+			</header>
+	        <div class="panel-body" ng-if="roleData.Description"> {{roleData.Description}} </div>
+	      </div>
+	 </div>
+
+		<!--单元项-->
+        <div class="col-md-3"  data-ng-repeat="item in list">
+	 		<div class="panel panel-default">
+		        <header class="panel-heading">
+					<strong>{{item.Name}}</strong>
+		          
+		        </header>
+		        <div class="panel-body" collapse="isCollapsed">
+					<div class="overflow" data-slim-scroll data-scroll-height="250px">
+						<table class="table">
+			            	<tbody>
+			              		<tr data-ng-repeat="node in item.Childs" >
+					                <td width="10%">
+										<label class="ui-checkbox">
+					                  		<input name="checkbox1" type="checkbox" ng-model="select[node.Id]"><span></span>
+										</label>
+									</td>
+					                <td>{{node.Name}}</td>
+									
+					            </tr>
+			              </tbody>
+				        </table>
+					</div>
+				</div>
+	      	</div>
+		</div>
+		<!--单元项结束-->
+
+ 		<div class="col-md-3" >
+	 		<div class="panel panel-primary">
+		        <header class="panel-heading">
+					<strong>系统管理</strong>
+		          
+		        </header>
+		        <div class="panel-body" collapse="isCollapsed">
+					<div class="overflow" data-slim-scroll data-scroll-height="250px">
+						<table class="table">
+			            	<tbody>
+			              		<tr>
+					                <td width="10%">
+										<label class="ui-checkbox">
+					                  		<input name="checkbox1" type="checkbox" ng-model="system.admin"><span></span>
+										</label>
+									</td>
+					                <td>管理员管理</td>
+								</tr>
+								<tr>
+									 <td width="10%">
+										<label class="ui-checkbox">
+					                  		<input name="checkbox1" type="checkbox" ng-model="system.mode"><span></span>
+										</label>
+									</td>
+					                <td>模块管理</td>
+								</tr>
+								<tr>
+									 <td width="10%">
+										<label class="ui-checkbox">
+					                  		<input name="checkbox1" type="checkbox" ng-model="system.role"><span></span>
+										</label>
+									</td>
+					                <td>角色管理</td>
+								</tr>
+								<tr>
+ 									<td width="10%">
+										<label class="ui-checkbox">
+					                  		<input name="checkbox1" type="checkbox" ng-model="system.node"><span></span>
+										</label>
+									</td>
+					                <td>节点管理</td>
+								</tr>
+								<tr>
+									 <td width="10%">
+										<label class="ui-checkbox">
+					                  		<input name="checkbox1" type="checkbox" ng-model="system.ipban"><span></span>
+										</label>
+									</td>	
+					                <td>屏蔽管理</td>
+								</tr>
+								<tr>
+					                 <td width="10%">
+										<label class="ui-checkbox">
+					                  		<input name="checkbox1" type="checkbox" ng-model="system.logs"><span></span>
+										</label>
+									</td>
+									<td>日志管理</td>
+								</tr>
+								
+			              </tbody>
+				        </table>
+					</div>
+				</div>
+	      	</div>
+		</div>
+
+
+    </div>
+
+
+</div>

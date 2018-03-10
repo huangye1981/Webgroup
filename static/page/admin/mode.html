@@ -1,0 +1,84 @@
+
+<div class="pageheader">
+    <h2><i class="fa fa-th-large"></i> 模块管理 </h2>
+    <div class="breadcrumb-wrapper hidden-xs">
+        <span class="label">当前位置:</span>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#/">
+                    Home
+                </a>
+            </li>
+            <li class="active"> 模块管理 </li>
+        </ol>
+    </div>
+</div>
+
+
+
+
+
+<div class="page"  data-ng-controller="ModeCtrl">
+	<!--权限不足时显示-->
+	<div ng-if="!checkPermission('mode','list')" data-ng-include=" '/static/page/nopermission.html' "></div>
+
+	<div ng-if="checkPermission('mode','list')">
+	    <div class="well">
+			<div class="row">
+				<form role="form"  data-ng-submit="getList()">
+	             <div  ng-class="{true: 'col-sm-10', false: 'col-sm-12'}[loginData.Role=='root']" >
+					<div class="input-group">
+	                   	<input placeholder="模块查询" class="form-control" type="text" data-ng-model="search.Keyword"/>
+	                    <span class="input-group-btn">
+	                    	<button class="btn btn-info" type="submit"><span class="fa fa-search"> 查询 </span></button>
+	                    </span> 
+					</div>
+	            </div>
+				
+				</form>
+	            <div class="col-sm-2">
+					<button ng-if="loginData.Role=='root'" class="btn btn-primary" ng-click="add();"><span class="fa fa-plus"></span> 添加模块 </button>
+	            </div>
+	        </div>
+	    </div>
+	
+	    <div class="row">
+	
+			<!--单元项-->
+	        <div class="col-md-3"  data-ng-repeat="item in list">
+		 		<div ng-class="{true:'panel panel-primary',false:'panel panel-default'}[item.Type==2]">
+			        <header class="panel-heading"><strong>{{item.Name}} ({{item.Key}})</strong>
+			          <span class="pull-right panel-toolbar"> 
+			         	<i class="fa fa-plus" ng-if="loginData.Role=='root'" ng-click="add(item.Id, 1)"></i>
+			            <i class="fa fa-edit" ng-if="loginData.Role=='root'" ng-click="edit(item.Id)"></i>
+			            <i class="fa fa-times" ng-if="loginData.Role=='root'" ng-click="del(item)"></i>
+			          </span>
+			        </header>
+			        <div class="panel-body" collapse="isCollapsed">
+						<div class="overflow" data-slim-scroll data-scroll-height="160px">
+							<table class="table">
+				            	<tbody>
+				              		<tr data-ng-repeat="node in item.Childs" >
+						                <td>
+											<i class="fa fa-file-text-o" title="日志跟踪" ng-if="node.Logs===1"></i>
+											<i class="fa fa-ban" title="日志不跟踪" ng-if="node.Logs===2"></i>
+								
+											　{{node.Name}} ({{node.Key}})
+										</td>
+										<td width=10%> <i class="fa fa-edit" ng-if="loginData.Role=='root'" ng-click="edit(node.Id)"></i></td>
+										<td width=10%> <i class="fa fa-times" ng-if="loginData.Role=='root'" ng-click="del(node)"></i></i></td>
+						            </tr>
+				             
+				              </tbody>
+					        </table>
+						</div>
+					</div>
+		      	</div>
+			</div>
+			<!--单元项结束-->
+	
+	    </div>
+	</div>
+
+
+</div>

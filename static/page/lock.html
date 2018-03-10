@@ -1,0 +1,19 @@
+<div class="lock-wrapper">
+  <div class="panel lock-box" data-ng-controller="LockCtrl">
+    <div class="center"> <img alt="" ng-src="{{loginData.Photo}}" class="img-circle"/> </div>
+    <h4> Hello {{loginData.Username}} ! </h4>
+    <p class="text-center"> Please login to unlock your screen. </p>
+    <div class="row">
+       <form class="form-inline" role="form" data-ng-submit="unLock()">
+        <div class="form-group col-md-12 col-sm-12 col-xs-12">
+          <div class="iconic-input right">
+            <label for="signupInputPassword" class="text-muted">Password</label>
+            <input id="signupInputPassword" type="password" placeholder="Password" class="form-control lock-input" required="required"  data-ng-model="lockpassword"/>
+            <i class="fa fa-lock"></i>
+          </div>
+          <button type="submit" class="btn btn-block btn-primary"> 解锁 </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
